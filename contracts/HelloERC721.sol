@@ -4,9 +4,12 @@ pragma solidity =0.8.17;
 
 import "@vialabs-io/contracts/message/MessageClient.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "base64-sol/base64.sol";
 
 contract HelloERC721 is ERC721, MessageClient {
+    using Strings for uint256;
+
     uint public nextNftId;
 
     constructor() ERC721("Hello ERC721!", "H721") {
@@ -41,7 +44,7 @@ contract HelloERC721 is ERC721, MessageClient {
 
         return string(abi.encodePacked('data:application/json;base64,', 
             Base64.encode(bytes(abi.encodePacked(
-                '{"name":"VIA Labs Hello ERC721 #', tokenId, '", "description":"Hello ERC721 cross chain NFT example. https://github.com/VIALabs-io/hello-erc721", "image":"https://i.postimg.cc/FKkpPByb/cl-logo.png"}')
+                '{"name":"VIA Labs Hello ERC721 #', tokenId.toString(), '", "description":"Hello ERC721 cross chain NFT example. https://github.com/VIALabs-io/hello-erc721", "image":"https://i.postimg.cc/FKkpPByb/cl-logo.png"}')
             )))
         );
     }
